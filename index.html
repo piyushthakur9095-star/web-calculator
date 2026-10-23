@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>Web Calculator</h2>
+
+    <div class="calc">
+
+        <!-- Header bar with history toggle -->
+        <div class="calc-header">
+            <button id="history-toggle" title="View History">⏱ History</button>
+        </div>
+
+        <!-- History drawer -->
+        <div class="history-panel" id="history-panel">
+            <div class="history-header">
+                <span>Recent Calculations</span>
+                <button id="clear-history">Clear</button>
+            </div>
+            <div class="history-list" id="history-list">
+                <div class="empty-history">No history yet</div>
+            </div>
+        </div>
+
+        <!-- Two-line display main expression & live preview -->
+        <div class="display">
+            <div class="expression-line">0</div>
+            <div class="preview-line"></div>
+        </div>
+
+        <!-- Keypad -->
+        <div class="keys">
+            <button id="ac">AC</button>
+            <button id="del">DEL</button>
+            <button class="oprator" id="per">&#37;</button>
+            <button class="oprator" id="div">&#247;</button>
+            <button id="7">7</button>
+            <button id="8">8</button>
+            <button id="9">9</button>
+            <button class="oprator" id="mult">&#215;</button>
+            <button id="4">4</button>
+            <button id="5">5</button>
+            <button id="6">6</button>
+            <button class="oprator" id="min">&#8722;</button>
+            <button id="1">1</button>
+            <button id="2">2</button>
+            <button id="3">3</button>
+            <button class="oprator" id="plus">&#43;</button>
+            <button id="0">0</button>
+            <button id="dec">&#8226;</button>
+            <button id="equal">&#61;</button>
+        </div>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

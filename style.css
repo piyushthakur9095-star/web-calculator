@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 80% 20%, #0d2830 0%, #080d1a 60%, #03060a 100%);
+    color: #ffffff;
+    gap: 20px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    opacity: 0.85;
+}
+
+/* Calculator container */
+.calc {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 36px;
+    padding: 20px;
+    width: 320px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+}
+
+/* Header & toggle */
+.calc-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+#history-toggle {
+    height: auto;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    background: rgba(0, 188, 212, 0.12);
+    border: 1px solid rgba(0, 188, 212, 0.3);
+    color: #4dd0e1;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+#history-toggle:hover {
+    background: rgba(0, 188, 212, 0.22);
+    transform: none;
+}
+
+/* Slide-out / Drop-down history panel */
+.history-panel {
+    position: absolute;
+    top: 55px;
+    left: 20px;
+    right: 20px;
+    height: 0;
+    background: rgba(8, 14, 23, 0.94);
+    backdrop-filter: blur(30px);
+    border-radius: 20px;
+    border: 1px solid rgba(0, 188, 212, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+}
+
+.history-panel.active {
+    height: 250px;
+    opacity: 1;
+    pointer-events: auto;
+    padding: 14px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.8rem;
+    color: #80deea;
+}
+
+#clear-history {
+    height: auto;
+    padding: 3px 8px;
+    font-size: 0.7rem;
+    background: rgba(186, 104, 200, 0.2);
+    border: 1px solid rgba(186, 104, 200, 0.35);
+    color: #e1bee7;
+    border-radius: 8px;
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-list::-webkit-scrollbar {
+    width: 4px;
+}
+.history-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 188, 212, 0.3);
+    border-radius: 4px;
+}
+
+.history-item {
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: 0.2s;
+    text-align: right;
+}
+
+.history-item:hover {
+    background: rgba(0, 188, 212, 0.1);
+}
+
+.history-item-exp {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.history-item-res {
+    font-size: 1rem;
+    color: #4dd0e1;
+    font-weight: 500;
+}
+
+.empty-history {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.8rem;
+    margin-top: 35px;
+}
+
+/* Two-line display */
+.display {
+    height: 95px;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 18px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.expression-line {
+    font-size: 1.8rem;
+    color: #e6f1f5;
+    font-weight: 300;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.preview-line {
+    font-size: 1rem;
+    color: rgba(77, 208, 225, 0.7);
+    min-height: 1.2rem;
+    font-weight: 400;
+}
+
+/* Keypad grid */
+.keys {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+/* Base button */
+button {
+    height: 54px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    user-select: none;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 0 button */
+button#\30 {
+    grid-column: span 2;
+}
+
+/* AC & DEL */
+#ac, #del {
+    background: rgba(186, 104, 200, 0.18);
+    border-color: rgba(186, 104, 200, 0.3);
+    color: #e1bee7;
+}
+
+#ac:hover, #del:hover {
+    background: rgba(186, 104, 200, 0.28);
+    box-shadow: 0 0 16px rgba(186, 104, 200, 0.3);
+}
+
+/* Operators */
+.oprator {
+    background: rgba(0, 188, 212, 0.12);
+    border-color: rgba(0, 188, 212, 0.25);
+    color: #4dd0e1;
+}
+
+.oprator:hover {
+    background: rgba(0, 188, 212, 0.22);
+    box-shadow: 0 0 16px rgba(0, 188, 212, 0.3);
+}
+
+/* Equal button */
+#equal {
+    background: #00bcd4;
+    border-color: #26c6da;
+    color: #041c22;
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(0, 188, 212, 0.45),
+                inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+#equal:hover {
+    background: #26c6da;
+    box-shadow: 0 0 30px rgba(0, 220, 255, 0.6),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
